@@ -1,11 +1,19 @@
-import React from "react";
+import { Route, Switch } from "react-router";
+import Nav from "./components/Nav";
 
-function App() {
+import LogIn from "./pages/LogIn";
+import Shop from "./pages/Shop";
+
+const App: React.FC = () => {
   return (
-    <>
-      <h1>HELLO WORLD</h1>
-    </>
+    <div>
+      <Nav />
+      <Switch>
+        <Route path="/" exact component={LogIn} />
+        <Route path="/shop" exact component={Shop} />
+      </Switch>
+    </div>
   );
-}
+};
 
 export default App;
