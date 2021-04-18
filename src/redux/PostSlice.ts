@@ -1,6 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import axios from "axios";
 import { AppState } from ".";
+import { getPosts as getPostsFromApi } from "../utils/api/GetPosts";
 
 const initialState: Posts = {
   posts: [],
@@ -22,9 +22,8 @@ interface PostsInfo {
 export const fetchPosts: any = createAsyncThunk(
   "posts/fetchPosts",
   async () => {
-    const response = await axios.get(`${process.env.REACT_APP_POSTS_API}`);
-    console.log(response.data);
-    return response.data;
+    const posts = await getPostsFromApi();
+    return posts;
   }
 );
 
@@ -35,7 +34,7 @@ export const postSlice = createSlice({
     reset: (state) => initialState,
   },
   extraReducers: {
-    [fetchPosts.pending]: (state, action) => {
+    [fetchPosts.pending]: (state) => {
       state.status = "loading";
     },
     [fetchPosts.fulfilled]: (state, action) => {
@@ -43,7 +42,7 @@ export const postSlice = createSlice({
       state.status = "succeded";
     },
 
-    [fetchPosts.rejected]: (state, action) => {
+    [fetchPosts.rejected]: (state) => {
       state.status = "failed";
     },
   },
