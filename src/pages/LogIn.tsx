@@ -1,8 +1,7 @@
 import React from "react";
-import PostsContainer from "../containers/PostContainer";
 
 const LogIn = () => {
-  return <></>;
+  return <>LOG IN PAGE POTANGINA MO</>;
 };
 
 export default LogIn;

@@ -4,15 +4,16 @@ import styled from "styled-components";
 interface ProductProps {
   name: string;
   price: number;
+  categ: string;
 }
 
-const Product: React.FC<ProductProps> = ({ name, price }) => {
+const Product: React.FC<ProductProps> = ({ name, price, categ }) => {
   return (
     <ProductContainer>
       <h3>{name}</h3>
       <p>{price}</p>
-      <Button>-</Button>
-      <Button>+</Button>
+      <p>{categ}</p>
+      <Button>ADD TO CART</Button>
     </ProductContainer>
   );
 };

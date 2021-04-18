@@ -1,6 +1,10 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { AppState } from ".";
 import { getProducts as getProductsFromApi } from "../utils/api/GetProducts";
+import { getFilterProductJewelry as getFilterJewelryFromApi } from "../utils/api/GetFilterProduct";
+import { getFilterProductWomenClothing as getFilterWomenClothingFromApi } from "../utils/api/GetFilterProduct";
+import { getFilterProductMenClothing as getFilterMenClothingFromApi } from "../utils/api/GetFilterProduct";
+import { getFilterProductElectronics as getFilterElectronicsFromApi } from "../utils/api/GetFilterProduct";
 
 const initialState: Products = {
   products: [],
@@ -29,6 +33,36 @@ export const fetchProducts: any = createAsyncThunk(
   }
 );
 
+export const fetchFilterJewelry: any = createAsyncThunk(
+  "products/fetchFilter",
+  async () => {
+    const products = await getFilterJewelryFromApi();
+    return products;
+  }
+);
+
+export const fetchFilterMenClothing: any = createAsyncThunk(
+  "products/fetchFilter",
+  async () => {
+    const products = await getFilterMenClothingFromApi();
+    return products;
+  }
+);
+export const fetchFilterWomenClothing: any = createAsyncThunk(
+  "products/fetchFilter",
+  async () => {
+    const products = await getFilterWomenClothingFromApi();
+    return products;
+  }
+);
+export const fetchFilterElectronics: any = createAsyncThunk(
+  "products/fetchFilter",
+  async () => {
+    const products = await getFilterElectronicsFromApi();
+    return products;
+  }
+);
+
 export const productSlice = createSlice({
   name: "allProducts",
   initialState,
@@ -43,6 +77,22 @@ export const productSlice = createSlice({
     },
     [fetchProducts.rejected]: (state) => {
       state.status = "failed";
+    },
+    [fetchFilterJewelry.fulfilled]: (state, { payload }) => {
+      state.products = payload;
+      state.status = "succeded";
+    },
+    [fetchFilterMenClothing.fulfilled]: (state, { payload }) => {
+      state.products = payload;
+      state.status = "succeded";
+    },
+    [fetchFilterWomenClothing.fulfilled]: (state, { payload }) => {
+      state.products = payload;
+      state.status = "succeded";
+    },
+    [fetchFilterElectronics.fulfilled]: (state, { payload }) => {
+      state.products = payload;
+      state.status = "succeded";
     },
   },
 });

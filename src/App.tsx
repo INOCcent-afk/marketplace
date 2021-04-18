@@ -1,6 +1,5 @@
 import { Route, Switch } from "react-router";
 import Nav from "./components/Nav/index";
-import Post from "./components/Post";
 
 import LogIn from "./pages/LogIn";
 import Shop from "./pages/Shop";

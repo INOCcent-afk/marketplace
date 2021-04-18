@@ -12,8 +12,6 @@ const PostsContainer = () => {
     dispatch(fetchPosts());
   }, [dispatch]);
 
-  console.log(posts);
-
   return (
     <>
       <div className="container">

@@ -16,7 +16,12 @@ const ProductContainer = () => {
   return (
     <div className={styles.container}>
       {products.map((product) => (
-        <Product name={product.title} key={product.id} price={product.price} />
+        <Product
+          categ={product.category}
+          name={product.title}
+          key={product.id}
+          price={product.price}
+        />
       ))}
     </div>
   );
