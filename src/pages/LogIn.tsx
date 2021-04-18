@@ -1,11 +1,8 @@
 import React from "react";
+import PostsContainer from "../containers/PostContainer";
 
 const LogIn = () => {
-  return (
-    <>
-      <h1>LOGIN</h1>
-    </>
-  );
+  return <></>;
 };
 
 export default LogIn;
