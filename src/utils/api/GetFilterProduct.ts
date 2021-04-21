@@ -7,19 +7,6 @@ export const getFilterProductJewelry = async () => {
   return response.data;
 };
 
-export const getFilterProductMenClothing = async () => {
-  const response = await axios.get(
-    `https://secret-ocean-49799.herokuapp.com/${process.env.REACT_APP_PRODUCTS_API}/category/men clothing`
-  );
-  return response.data;
-};
-export const getFilterProductWomenClothing = async () => {
-  const response = await axios.get(
-    `https://secret-ocean-49799.herokuapp.com/${process.env.REACT_APP_PRODUCTS_API}/category/women clothing`
-  );
-  return response.data;
-};
-
 export const getFilterProductElectronics = async () => {
   const response = await axios.get(
     `https://secret-ocean-49799.herokuapp.com/${process.env.REACT_APP_PRODUCTS_API}/category/electronics`

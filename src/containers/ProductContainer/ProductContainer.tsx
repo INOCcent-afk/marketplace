@@ -20,6 +20,7 @@ const ProductContainer = () => {
           categ={product.category}
           name={product.title}
           key={product.id}
+          id={product.id}
           price={product.price}
         />
       ))}

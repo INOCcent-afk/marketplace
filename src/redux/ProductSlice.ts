@@ -1,18 +1,18 @@
-import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { AppState } from ".";
 import { getProducts as getProductsFromApi } from "../utils/api/GetProducts";
 import { getFilterProductJewelry as getFilterJewelryFromApi } from "../utils/api/GetFilterProduct";
-import { getFilterProductWomenClothing as getFilterWomenClothingFromApi } from "../utils/api/GetFilterProduct";
-import { getFilterProductMenClothing as getFilterMenClothingFromApi } from "../utils/api/GetFilterProduct";
 import { getFilterProductElectronics as getFilterElectronicsFromApi } from "../utils/api/GetFilterProduct";
 
 const initialState: Products = {
   products: [],
+  cart: [],
   status: null,
 };
 
 interface Products {
   products: ProductsInfo[];
+  cart: CartItemInfo[];
   status: string | null;
 }
 
@@ -20,9 +20,14 @@ interface ProductsInfo {
   id: number;
   title: string;
   price: number;
-  description: string;
+  description?: string;
   category: string;
-  image: string;
+  image?: string;
+}
+interface CartItemInfo {
+  id: number;
+  title: string;
+  price: number;
 }
 
 export const fetchProducts: any = createAsyncThunk(
@@ -41,20 +46,6 @@ export const fetchFilterJewelry: any = createAsyncThunk(
   }
 );
 
-export const fetchFilterMenClothing: any = createAsyncThunk(
-  "products/fetchFilter",
-  async () => {
-    const products = await getFilterMenClothingFromApi();
-    return products;
-  }
-);
-export const fetchFilterWomenClothing: any = createAsyncThunk(
-  "products/fetchFilter",
-  async () => {
-    const products = await getFilterWomenClothingFromApi();
-    return products;
-  }
-);
 export const fetchFilterElectronics: any = createAsyncThunk(
   "products/fetchFilter",
   async () => {
@@ -66,7 +57,28 @@ export const fetchFilterElectronics: any = createAsyncThunk(
 export const productSlice = createSlice({
   name: "allProducts",
   initialState,
-  reducers: {},
+  reducers: {
+    removeCartItem: (state, action: PayloadAction<number>) => {
+      return {
+        ...state,
+        cart: state.cart.filter((item) => item.id !== action.payload),
+      };
+    },
+    addCartItem: (state, action: PayloadAction<CartItemInfo>) => {
+      return {
+        ...state,
+        cart: [
+          ...state.cart,
+          {
+            id: action.payload.id,
+            price: action.payload.price,
+            title: action.payload.title,
+            status: true,
+          },
+        ],
+      };
+    },
+  },
   extraReducers: {
     [fetchProducts.pending]: (state) => {
       state.status = "loading";
@@ -82,14 +94,6 @@ export const productSlice = createSlice({
       state.products = payload;
       state.status = "succeded";
     },
-    [fetchFilterMenClothing.fulfilled]: (state, { payload }) => {
-      state.products = payload;
-      state.status = "succeded";
-    },
-    [fetchFilterWomenClothing.fulfilled]: (state, { payload }) => {
-      state.products = payload;
-      state.status = "succeded";
-    },
     [fetchFilterElectronics.fulfilled]: (state, { payload }) => {
       state.products = payload;
       state.status = "succeded";
@@ -97,6 +101,10 @@ export const productSlice = createSlice({
   },
 });
 
+export const { addCartItem, removeCartItem } = productSlice.actions;
+
 export const selectProducts = (state: AppState) => state.allProducts.products;
+
+export const selectCart = (state: AppState) => state.allProducts.cart;
 
 export default productSlice.reducer;

@@ -3,10 +3,12 @@ import { GoogleLogin, GoogleLogout } from "react-google-login";
 import { useHistory } from "react-router";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
+import { useAppSelector } from "../../redux/hook";
 
 const Nav: React.FC = () => {
   const history = useHistory();
   const [isLoggedIn, setIsLoggedIn] = useState(true);
+  const cart = useAppSelector((state) => state.allProducts.cart);
 
   //SHOW USER
   const [user, setUser] = useState("Welcome");
@@ -32,6 +34,9 @@ const Nav: React.FC = () => {
       <Header>
         <div>
           <h3>{user}</h3>
+          <Link to="/shop">
+            <h6>SHOP</h6>
+          </Link>
           {isLoggedIn && (
             <GoogleLogin
               clientId={`${process.env.REACT_APP_CLIENT_ID}`}
@@ -48,7 +53,7 @@ const Nav: React.FC = () => {
         </div>
         {!isLoggedIn && (
           <div>
-            <Link to="/">CART ITEMS:</Link>
+            <Link to="/cart">CART ITEMS:{cart.length}</Link>
           </div>
         )}
       </Header>

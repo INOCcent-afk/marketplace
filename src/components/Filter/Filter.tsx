@@ -3,8 +3,6 @@ import { useAppDispatch } from "../../redux/hook";
 import {
   fetchFilterElectronics,
   fetchFilterJewelry,
-  fetchFilterMenClothing,
-  fetchFilterWomenClothing,
 } from "../../redux/ProductSlice";
 
 const Filter = () => {
@@ -16,9 +14,7 @@ const Filter = () => {
 
   return (
     <>
-      <h1 onClick={() => fetch(fetchFilterWomenClothing())}>women clothing</h1>
       <h1 onClick={() => fetch(fetchFilterJewelry())}>jewelry</h1>
-      <h1 onClick={() => fetch(fetchFilterMenClothing())}>men clothing</h1>
       <h1 onClick={() => fetch(fetchFilterElectronics())}>electronics</h1>
     </>
   );
