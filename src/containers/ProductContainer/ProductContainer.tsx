@@ -22,6 +22,7 @@ const ProductContainer = () => {
           key={product.id}
           id={product.id}
           price={product.price}
+          btns={true}
         />
       ))}
     </div>

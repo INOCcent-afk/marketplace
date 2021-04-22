@@ -1,5 +1,4 @@
 import React, { FC } from "react";
-import CartProduct from "../components/CartProduct";
 import Product from "../components/Product";
 import { useAppSelector } from "../redux/hook";
 
@@ -13,7 +12,13 @@ const Cart: FC = () => {
       {cart.map((product) => (
         <>
           <div>
-            <CartProduct name={product.title} price={product.price} />
+            <Product
+              name={product.title}
+              price={product.price}
+              id={product.id}
+              key={product.id}
+              btns={false}
+            />
           </div>
         </>
       ))}

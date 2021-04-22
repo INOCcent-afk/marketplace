@@ -70,12 +70,17 @@ export const productSlice = createSlice({
         cart: [
           ...state.cart,
           {
-            id: action.payload.id,
+            id: Math.floor(Math.random() * 999),
             price: action.payload.price,
             title: action.payload.title,
-            status: true,
           },
         ],
+      };
+    },
+    clearCart: (state) => {
+      return {
+        ...state,
+        cart: [],
       };
     },
   },
@@ -101,7 +106,7 @@ export const productSlice = createSlice({
   },
 });
 
-export const { addCartItem, removeCartItem } = productSlice.actions;
+export const { addCartItem, removeCartItem, clearCart } = productSlice.actions;
 
 export const selectProducts = (state: AppState) => state.allProducts.products;
 

@@ -8,9 +8,10 @@ interface ProductProps {
   price: number;
   categ?: string;
   id: number;
+  btns?: boolean;
 }
 
-const Product: React.FC<ProductProps> = ({ name, price, categ, id }) => {
+const Product: React.FC<ProductProps> = ({ name, price, categ, id, btns }) => {
   const [buttons, setButtons] = React.useState(Boolean);
   const dispatch = useAppDispatch();
 
@@ -29,12 +30,16 @@ const Product: React.FC<ProductProps> = ({ name, price, categ, id }) => {
       <p>{price}</p>
       <p>{categ}</p>
 
-      <Button disabled={buttons} onClick={addItem}>
-        ADD TO CART
-      </Button>
-      <Button disabled={!buttons} onClick={removeItem}>
-        REMOTE ITEM
-      </Button>
+      {btns && (
+        <>
+          <Button disabled={buttons} onClick={addItem}>
+            ADD TO CART
+          </Button>
+          <Button disabled={!buttons} onClick={removeItem}>
+            REMOTE ITEM
+          </Button>
+        </>
+      )}
     </ProductContainer>
   );
 };
